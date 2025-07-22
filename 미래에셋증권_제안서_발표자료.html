@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래에셋증권 맞춤형 AI 역량 강화 프로그램 제안</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap">
+    <!-- Chosen Palette: Calm Harmony (Warm Neutrals with Blue/Green Accent) -->
+    <!-- Application Structure Plan: The SPA is designed as a narrative journey for a decision-maker. It starts with a Hero section stating the core value proposition. It then moves to 'The Challenge & Solution' to establish the problem and present the A³cube methodology as an interactive three-part diagram. The core 'Customized Curriculum' section uses a two-tier interactive system: primary tabs for Track 1/2, and secondary buttons within Track 1 to switch between the 5 job-specific curriculums. This nested interaction prevents information overload and allows users to drill down into relevant content. The structure logically guides the user from problem to solution to detailed plans, making the proposal more persuasive and easier to digest than a linear document. -->
+    <!-- Visualization & Content Choices: Report Info: A³cube Methodology -> Goal: Explain a core concept clearly -> Viz/Method: Interactive 3-column card layout with JS click-to-reveal -> Justification: Breaks down a complex idea into digestible parts, encouraging user interaction. | Report Info: Track 1 Curriculums (5 types) -> Goal: Present detailed schedules without clutter -> Viz/Method: Nested navigation (Tabs for Tracks, Buttons for Job Roles) to dynamically display the correct curriculum table -> Justification: Manages high information density effectively, providing a clean, user-controlled interface. | Report Info: Success Stories -> Goal: Build credibility -> Viz/Method: Styled two-column card layout -> Justification: Presents proof points in a visually appealing and scannable format. | Library/Method: Vanilla JS for all interactions, Tailwind CSS for all styling. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #495057;
+            max-width: 800px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-active {
+            border-color: #0057A8;
+            background-color: #0057A8;
+            color: white;
+        }
+        .tab-inactive {
+            border-color: #D1D5DB;
+            background-color: white;
+            color: #4B5563;
+        }
+        .job-button-active {
+            background-color: #1E40AF;
+            color: white;
+            font-weight: 700;
+        }
+        .job-button-inactive {
+            background-color: #E5E7EB;
+            color: #374151;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold">
+                <span class="text-[#0057A8]">미래에셋증권</span> AI 역량 강화 제안
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#problem" class="text-gray-600 hover:text-[#0057A8]">문제 진단</a>
+                <a href="#solution" class="text-gray-600 hover:text-[#0057A8]">해결 방향</a>
+                <a href="#curriculum" class="text-gray-600 hover:text-[#0057A8]">맞춤 커리큘럼</a>
+                <a href="#cases" class="text-gray-600 hover:text-[#0057A8]">성공 사례</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white pt-24 pb-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                    AI 사용자에서 <span class="text-[#0057A8]">AI 혁신가</span>로
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    미래에셋증권 임직원이 AI를 활용해 비즈니스 문제를 주도적으로 해결하는 '문제 해결사'로 거듭날 수 있도록, 모두의연구소가 실질적이고 검증된 솔루션을 제안합니다.
+                </p>
+                <a href="#curriculum" class="mt-10 inline-block bg-[#0057A8] text-white font-bold py-4 px-10 rounded-lg hover:bg-[#004182] transition-transform transform hover:scale-105">
+                    맞춤 커리큘럼 바로가기
+                </a>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title">핵심 문제 진단: 학습과 성과의 단절</h2>
+                <p class="section-subtitle mx-auto mt-4">
+                    과거 AI 교육이 높은 기술 이해도에도 불구하고, 실질적인 비즈니스 가치 창출로 이어지지 못하는 이유는 명확합니다. 'AI 기능 습득'과 '실제 업무 문제 해결' 사이의 간극을 메우는 것이 시급합니다.
+                </p>
+                <div class="mt-12 grid md:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+                    <div class="bg-white p-8 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-bold text-red-600">지식의 파편화</h3>
+                        <p class="mt-2 text-gray-600">단편적인 툴 교육은 AI를 '블랙박스'로 만들고, 응용력을 저해합니다.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-bold text-red-600">현업과 괴리</h3>
+                        <p class="mt-2 text-gray-600">실제 업무 맥락이 없는 기술 교육은 현업 적용으로 이어지기 어렵습니다.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-bold text-red-600">결과물 부재</h3>
+                        <p class="mt-2 text-gray-600">'손에 잡히는 결과물'이 없는 교육은 성공 경험을 제공하지 못합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section id="solution" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title">해결 방향: A³cube 3차원 학습 방법론</h2>
+                <p class="section-subtitle mx-auto mt-4">
+                    모두의연구소는 기술, 비즈니스, 실행을 결합한 독자적인 A³cube 방법론을 통해 조직의 근본적인 변화를 이끌고, 실질적인 비즈니스 성과를 창출합니다.
+                </p>
+                <div class="mt-12 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold mb-2">Artificial Intelligence</h3>
+                        <p class="text-lg text-[#0057A8] font-semibold">기술: '사용'을 넘어 '창조'로</p>
+                        <p class="mt-4 text-gray-600">단순 툴 사용법이 아닌, '바이브 코딩'의 원리를 이해하여 어떤 환경에서도 응용 가능한 문제 해결 로직을 학습합니다.</p>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold mb-2">Agent</h3>
+                        <p class="text-lg text-[#0057A8] font-semibold">비즈니스: 적용의 간극을 메우다</p>
+                        <p class="mt-4 text-gray-600">미래에셋증권의 전략 방향(연금, STO 등)과 직접 연계된 주제로 프로젝트를 진행하여 교육의 현업 관련성과 몰입도를 극대화합니다.</p>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold mb-2">Active Learning</h3>
+                        <p class="text-lg text-[#0057A8] font-semibold">실행: 손에 잡히는 결과물</p>
+                        <p class="mt-4 text-gray-600">아이디어톤/해커톤 방식을 통해 참가자가 직접 아이디어를 내고, 작동하는 MVP를 만들며 강력한 성공 경험을 체득합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Section -->
+        <section id="curriculum" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title">맞춤형 교육 프로그램</h2>
+                    <p class="section-subtitle mx-auto mt-4">
+                        미래에셋증권의 다양한 직군을 고려하여, 비개발자 대상 'AI 비즈니스 혁신가 과정'과 개발자 대상 '고급 AI 솔루션 개발 과정'의 두 가지 트랙을 제안합니다.
+                    </p>
+                </div>
+
+                <!-- Track Tabs -->
+                <div class="mt-12 flex justify-center">
+                    <div class="inline-flex rounded-lg border border-gray-200 bg-white p-1">
+                        <button id="track1-tab" class="track-tab tab-active px-8 py-3 text-lg font-semibold rounded-md transition">트랙 1: 비즈니스 혁신가</button>
+                        <button id="track2-tab" class="track-tab tab-inactive px-8 py-3 text-lg font-semibold rounded-md transition">트랙 2: 고급 솔루션 개발</button>
+                    </div>
+                </div>
+
+                <!-- Track 1 Content -->
+                <div id="track1-content" class="track-content mt-8">
+                    <div class="text-center mb-10">
+                        <h3 class="text-2xl font-bold">트랙 1: AI 기반 비즈니스 혁신가 과정 (직무별 분반)</h3>
+                        <p class="text-gray-600 mt-2">5개 직무 분반으로 나누어, 공통의 업무 맥락 속에서 현실적인 프로젝트를 수행하며 학습 효과를 극대화합니다.</p>
+                    </div>
+                    <!-- Job Role Buttons -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-8">
+                        <button class="job-button job-button-active px-5 py-2 rounded-lg transition" data-target="job-1">WM/PB</button>
+                        <button class="job-button job-button-inactive px-5 py-2 rounded-lg transition" data-target="job-2">리서치/애널리스트</button>
+                        <button class="job-button job-button-inactive px-5 py-2 rounded-lg transition" data-target="job-3">마케팅/상품기획</button>
+                        <button class="job-button job-button-inactive px-5 py-2 rounded-lg transition" data-target="job-4">디지털/IT기획</button>
+                        <button class="job-button job-button-inactive px-5 py-2 rounded-lg transition" data-target="job-5">경영지원/관리</button>
+                    </div>
+
+                    <!-- Job Curriculum Tables -->
+                    <div class="job-content-wrapper bg-white p-6 rounded-lg shadow-lg">
+                        <!-- WM/PB -->
+                        <div id="job-1" class="job-content">
+                            <table class="w-full text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                        <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                        <th class="p-4 w-1/6 font-semibold">개념</th>
+                                        <th class="p-4 w-1/12 font-semibold">시간</th>
+                                        <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="p-4 font-bold">Module 1</td>
+                                        <td class="p-4">- WM/PB 업무 비효율 발굴<br>- AI 솔루션 아이디어 도출 ('AI 투자 성향 분석기' 등)<br>- MVP 기능 정의 및 시나리오 기획</td>
+                                        <td class="p-4">Design Thinking, Problem Definition</td>
+                                        <td class="p-4">90분</td>
+                                        <td class="p-4">아이디어톤, 페르소나 분석</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="p-4 font-bold">Module 2</td>
+                                        <td class="p-4">- 앱 빌더(Glide)로 '투자 성향 진단 앱' 제작<br>- 자동화(Make)로 '상담 요약 이메일' 설계</td>
+                                        <td class="p-4">No-Code/Low-Code, Workflow Automation</td>
+                                        <td class="p-4">90분</td>
+                                        <td class="p-4">Glide, Make.com, Prompt Engineering</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="p-4 font-bold">Module 3</td>
+                                        <td class="p-4">- 팀별 MVP 집중 개발 (맞춤 상품 추천 앱, 시장 브리핑 봇 등)<br>- 전문 퍼실리테이터 순회 멘토링</td>
+                                        <td class="p-4">Agile Development, Prototyping</td>
+                                        <td class="p-4">210분</td>
+                                        <td class="p-4">Glide, Zapier, Internal LLM API</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-bold">Module 4</td>
+                                        <td class="p-4">- 팀별 MVP 시연 및 기대효과 발표<br>- 동료 평가 및 현업 적용 방안 토론</td>
+                                        <td class="p-4">Pitching, Peer Review</td>
+                                        <td class="p-4">90분</td>
+                                        <td class="p-4">MVP 시연, 성과 공유</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Research -->
+                        <div id="job-2" class="job-content hidden">
+                           <table class="w-full text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                        <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                        <th class="p-4 w-1/6 font-semibold">개념</th>
+                                        <th class="p-4 w-1/12 font-semibold">시간</th>
+                                        <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 1</td><td class="p-4">- 리서치 업무 비효율 발굴 (데이터 수집, 분석, 리포트 작성 등)<br>- AI 솔루션 아이디어 도출 ('실적 데이터 자동 추출기' 등)<br>- MVP 기능 정의 및 시나리오 기획</td><td class="p-4">Research Automation, Data-driven Decision Making</td><td class="p-4">90분</td><td class="p-4">아이디어톤, 데이터 파이프라인 설계</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 2</td><td class="p-4">- 웹 스크래핑(Browse AI)으로 공시/뉴스 데이터 자동 수집<br>- 자동화(Make)로 데이터 요약 및 대시보드(Softr) 전송</td><td class="p-4">Web Scraping, Data Visualization</td><td class="p-4">90분</td><td class="p-4">Browse AI, Make.com, Softr</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 3</td><td class="p-4">- 팀별 MVP 집중 개발 (뉴스/공시 요약 대시보드, 리포트 초안 생성기 등)<br>- 전문 퍼실리테이터 순회 멘토링</td><td class="p-4">Information Retrieval, Report Automation</td><td class="p-4">210분</td><td class="p-4">Browse AI, Make.com, Softr, Internal LLM API</td></tr>
+                                    <tr><td class="p-4 font-bold">Module 4</td><td class="p-4">- 팀별 MVP 시연 및 업무 효율화 효과 발표<br>- 동료 평가 및 현업 적용 방안 토론</td><td class="p-4">Pitching, Peer Review</td><td class="p-4">90분</td><td class="p-4">MVP 시연, 성과 공유</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Marketing -->
+                        <div id="job-3" class="job-content hidden">
+                           <table class="w-full text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                        <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                        <th class="p-4 w-1/6 font-semibold">개념</th>
+                                        <th class="p-4 w-1/12 font-semibold">시간</th>
+                                        <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 1</td><td class="p-4">- 마케팅 업무 비효율 발굴 (콘텐츠 제작, 캠페인 관리 등)<br>- AI 솔루션 아이디어 도출 ('타겟 광고 문구 생성기' 등)<br>- MVP 기능 정의 및 시나리오 기획</td><td class="p-4">AI in Marketing, Content Automation</td><td class="p-4">90분</td><td class="p-4">아이디어톤, A/B 테스팅 기획</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 2</td><td class="p-4">- AI 이미지 생성(Midjourney)으로 광고 배너 시안 제작<br>- AI 영상 제작(HeyGen)으로 상품 소개 영상 프로토타입 제작</td><td class="p-4">Generative AI, Multimodal Content</td><td class="p-4">90분</td><td class="p-4">Midjourney, HeyGen</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 3</td><td class="p-4">- 팀별 MVP 집중 개발 (맞춤 광고 생성기, 상품 소개 영상 자동 제작 솔루션 등)<br>- 전문 퍼실리테이터 순회 멘토링</td><td class="p-4">Persona-based Marketing, Automated Content Creation</td><td class="p-4">210분</td><td class="p-4">ChatGPT API, Midjourney, HeyGen, Glide</td></tr>
+                                    <tr><td class="p-4 font-bold">Module 4</td><td class="p-4">- 팀별 MVP 시연 및 마케팅 효율 개선 효과 발표<br>- 동료 평가 및 현업 적용 방안 토론</td><td class="p-4">Pitching, Peer Review</td><td class="p-4">90분</td><td class="p-4">MVP 시연, 성과 공유</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Digital/IT -->
+                        <div id="job-4" class="job-content hidden">
+                           <table class="w-full text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                        <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                        <th class="p-4 w-1/6 font-semibold">개념</th>
+                                        <th class="p-4 w-1/12 font-semibold">시간</th>
+                                        <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 1</td><td class="p-4">- 디지털 서비스 비효율 발굴 (VOC 분석, 서비스 개선점 도출 등)<br>- AI 솔루션 아이디어 도출 ('VOC 자동 분석 대시보드' 등)<br>- MVP 기능 정의 및 시나리오 기획</td><td class="p-4">AI for UX, Service Design</td><td class="p-4">90분</td><td class="p-4">아이디어톤, 고객 여정 지도</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 2</td><td class="p-4">- 앱 리뷰/VOC 데이터 자동 수집 및 AI 감성 분석(Make)<br>- 분석 결과를 시각화 대시보드(Softr)로 구현</td><td class="p-4">Sentiment Analysis, Data-driven UX</td><td class="p-4">90분</td><td class="p-4">Make.com, Softr, Internal LLM API</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 3</td><td class="p-4">- 팀별 MVP 집중 개발 (앱 리뷰 분석 대시보드, AI 기능 추천 시스템 등)<br>- 전문 퍼실리테이터 순회 멘토링</td><td class="p-4">VOC Analysis, Feature Prioritization</td><td class="p-4">210분</td><td class="p-4">Make.com, Softr, Glide</td></tr>
+                                    <tr><td class="p-4 font-bold">Module 4</td><td class="p-4">- 팀별 MVP 시연 및 서비스 개선 기여 효과 발표<br>- 동료 평가 및 현업 적용 방안 토론</td><td class="p-4">Pitching, Peer Review</td><td class="p-4">90분</td><td class="p-4">MVP 시연, 성과 공유</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Admin -->
+                        <div id="job-5" class="job-content hidden">
+                           <table class="w-full text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                        <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                        <th class="p-4 w-1/6 font-semibold">개념</th>
+                                        <th class="p-4 w-1/12 font-semibold">시간</th>
+                                        <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 1</td><td class="p-4">- 지원/관리 업무 비효율 발굴 (반복 보고, 규정 검토 등)<br>- AI 솔루션 아이디어 도출 ('내부 규정 질의응답 챗봇' 등)<br>- MVP 기능 정의 및 시나리오 기획</td><td class="p-4">Process Automation, AI for Admin</td><td class="p-4">90분</td><td class="p-4">아이디어톤, 업무 프로세스 분석</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 2</td><td class="p-4">- 챗봇 빌더(Voiceflow)로 '내부 규정 안내 챗봇' 설계<br>- 자동화(Make)로 정기 보고서 데이터 자동 취합 설계</td><td class="p-4">Conversational AI, RPA</td><td class="p-4">90분</td><td class="p-4">Voiceflow, Make.com</td></tr>
+                                    <tr class="border-b"><td class="p-4 font-bold">Module 3</td><td class="p-4">- 팀별 MVP 집중 개발 (컴플라이언스 점검 챗봇, 보고서 초안 생성기 등)<br>- 전문 퍼실리테이터 순회 멘토링</td><td class="p-4">Compliance Check, Automated Reporting</td><td class="p-4">210분</td><td class="p-4">Voiceflow, Make.com, Google Sheets</td></tr>
+                                    <tr><td class="p-4 font-bold">Module 4</td><td class="p-4">- 팀별 MVP 시연 및 생산성 향상 효과 발표<br>- 동료 평가 및 현업 적용 방안 토론</td><td class="p-4">Pitching, Peer Review</td><td class="p-4">90분</td><td class="p-4">MVP 시연, 성과 공유</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 2 Content -->
+                <div id="track2-content" class="track-content mt-8 hidden">
+                     <div class="text-center mb-10">
+                        <h3 class="text-2xl font-bold">트랙 2: 고급 AI 에이전트 및 솔루션 개발 과정</h3>
+                        <p class="text-gray-600 mt-2">개발자 및 IT 전문가를 대상으로, 고도화된 AI 솔루션을 직접 설계, 개발, 최적화하는 실전 역량을 함양합니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-4 w-1/6 font-semibold">모듈</th>
+                                    <th class="p-4 w-2/5 font-semibold">상세 내용</th>
+                                    <th class="p-4 w-1/6 font-semibold">개념</th>
+                                    <th class="p-4 w-1/12 font-semibold">시간</th>
+                                    <th class="p-4 w-1/4 font-semibold">핵심 개념 및 툴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b"><td class="p-4 font-bold">Module 1</td><td class="p-4">- LLM 기반 애플리케이션 개발에 필요한 핵심 프레임워크와 AI 에이전트의 설계 사상을 이해</td><td class="p-4">LLM 솔루션 아키텍처</td><td class="p-4">90분</td><td class="p-4">LangChain, LlamaIndex, Transformer</td></tr>
+                                <tr class="border-b"><td class="p-4 font-bold">Module 2</td><td class="p-4">- 사내 지식을 활용하여 정확한 답변을 생성하는 고성능 RAG(검색 증강 생성) 시스템 구축</td><td class="p-4">금융 특화 RAG 시스템</td><td class="p-4">90분</td><td class="p-4">RAG, Vector DB, Embedding</td></tr>
+                                <tr class="border-b"><td class="p-4 font-bold">Module 3</td><td class="p-4">- 내부 시스템과 연동하여 복잡한 금융 업무를 자율적으로 수행하는 AI 에이전트를 개발</td><td class="p-4">자율형 AI 에이전트 개발</td><td class="p-4">180분</td><td class="p-4">AI Agent, Tool Calling, ReAct</td></tr>
+                                <tr><td class="p-4 font-bold">Module 4</td><td class="p-4">- 학습한 내용을 종합하여 현업 문제 해결이 가능한 소규모 금융 AI 솔루션을 완성하고, 기술적 성과를 공유</td><td class="p-4">실전 솔루션 구현 및 공유</td><td class="p-4">120분</td><td class="p-4">MVP Development, Code Review</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Cases Section -->
+        <section id="cases" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title">검증된 성공 사례</h2>
+                    <p class="section-subtitle mx-auto mt-4">
+                        모두의연구소는 삼성, 신한 등 국내 최고 금융/IT 기업들과의 협업을 통해 엔터프라이즈 환경의 제약 속에서 교육 효과를 극대화하는 노하우를 보유하고 있습니다.
+                    </p>
+                </div>
+                <div class="mt-12 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold mb-3">삼성증권 'AI Rookie' 과정</h3>
+                        <p class="text-gray-700">
+                           '공통 핵심 역량'과 '직무별 심화 모듈'을 결합, 현업의 실제 문제를 해결하는 미니 해커톤을 진행하여 AI 기술의 효용성을 전사적으로 입증했습니다.
+                        </p>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold mb-3">신한은행 '금융 혁신 전문가' 과정</h3>
+                        <p class="text-gray-700">
+                           금융 도메인에 특화된 프로젝트 기반 워크숍을 통해, 데이터 기반 혁신을 주도할 핵심 인재 풀을 형성하고 현업 적용도를 높였습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <h3 class="text-3xl font-bold">이제, 미래에셋증권의 AI 혁신을 시작할 시간입니다.</h3>
+            <p class="mt-4 max-w-2xl mx-auto text-gray-300">
+                모두의연구소는 이번 교육을 넘어, 미래에셋증권이 대한민국 금융 산업에서 누구도 넘볼 수 없는 AI 리더십을 확립하는 여정에 함께하는 장기적인 전략적 파트너가 되기를 희망합니다.
+            </p>
+            <div class="mt-8">
+                <p class="text-lg font-semibold">모두의연구소 | 기업 교육 문의</p>
+                <p class="text-gray-400">modu.biz@modulabs.co.kr</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const trackTabs = document.querySelectorAll('.track-tab');
+            const trackContents = document.querySelectorAll('.track-content');
+            const jobButtons = document.querySelectorAll('.job-button');
+            const jobContents = document.querySelectorAll('.job-content');
+
+            // Handler for Track Tabs (Track 1 vs Track 2)
+            trackTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    trackTabs.forEach(item => {
+                        item.classList.remove('tab-active');
+                        item.classList.add('tab-inactive');
+                    });
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('tab-inactive');
+
+                    const targetId = tab.id.replace('-tab', '-content');
+                    trackContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Handler for Job Role Buttons (within Track 1)
+            jobButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    jobButtons.forEach(item => {
+                        item.classList.remove('job-button-active');
+                        item.classList.add('job-button-inactive');
+                    });
+                    button.classList.add('job-button-active');
+                    button.classList.remove('job-button-inactive');
+
+                    const targetId = button.dataset.target;
+                    jobContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
